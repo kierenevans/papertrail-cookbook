@@ -19,10 +19,14 @@ describe 'papertrail::default' do
     expect(chef_run).to render_file('/etc/rsyslog.d/60-watch-files.conf').with_content('$InputFileStateFile state_file_name_test_file')
   end
 
-  it 'uses attributes to generate configuration' do
+  it 'should use attributes to generate configuration' do
     expect(chef_run).to render_file('/etc/rsyslog.d/65-papertrail.conf').with_content('$ActionResumeRetryCount -1')
     expect(chef_run).to render_file('/etc/rsyslog.d/65-papertrail.conf').with_content('$ActionQueueMaxDiskSpace 100M')
     expect(chef_run).to render_file('/etc/rsyslog.d/65-papertrail.conf').with_content('$ActionQueueSize 100000')
     expect(chef_run).to render_file('/etc/rsyslog.d/65-papertrail.conf').with_content('$ActionQueueFileName papertrailqueue')
+  end
+
+  it 'should only set gtls transport for the current action' do
+    expect(chef_run).to render_file('/etc/rsyslog.d/65-papertrail.conf').with_content('$ActionSendStreamDriver gtls')
   end
 end
