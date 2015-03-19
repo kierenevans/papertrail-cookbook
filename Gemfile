@@ -1,4 +1,4 @@
 source "http://rubygems.org"
 
-gem 'chefspec', git: 'git://github.com/acrmp/chefspec.git'
-gem 'librarian-chef'
+gem 'chefspec', '~> 4.2.0'
+gem 'berkshelf', '~> 3.2.3'
